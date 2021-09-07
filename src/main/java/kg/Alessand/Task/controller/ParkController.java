@@ -26,7 +26,7 @@ public class ParkController {
     //private ClientsDto save(@ModelAttribute ClientsDto clientsDto) {
     //    return clientsService.save(clientsDto);
     @PutMapping("/setFree")
-    private int updateStatus(@RequestParam Integer id){
+    private Integer updateStatus(@RequestParam Long id){
         return parkService.setFreeParking(id);
     }
     @GetMapping("/findAll")
@@ -36,6 +36,10 @@ public class ParkController {
     @PostMapping("/save")
     private Park save(@ModelAttribute Park park){
         return parkService.comeInn(park);
+    }
+    @GetMapping("/findFreePlace")
+    private int findFreePlace(){
+        return parkService.findFreePlace();
     }
 
 }

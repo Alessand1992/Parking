@@ -11,11 +11,13 @@ public interface ParkService {
 
     ParkDto comeIn(ParkDto parkDto);
 
-    int setFreeParking(Integer id);
+    Integer setFreeParking(Long id);
 
     Park comeInn(Park park);
 
     Park updateTrueOnFalse(Park park);
 
     Park findById(Long id);
+
+    int findFreePlace();
 }

@@ -27,7 +27,7 @@ public class ParkServiceImpl implements ParkService {
     }
 
     @Override
-    public int setFreeParking(Integer id) {
+    public Integer setFreeParking(Long id) {
         return parkRepo.setFreePark(id);
     }
 
@@ -44,6 +44,7 @@ public class ParkServiceImpl implements ParkService {
             throw new RuntimeException("Car is not found");
         }else {
             parkFromBase.setOnPark(false);
+            parkRepo.save(parkFromBase);
             return comeInn(parkFromBase);
         }
     }
@@ -57,4 +58,11 @@ public class ParkServiceImpl implements ParkService {
             return null;
         }
     }
+
+    @Override
+    public int findFreePlace() {
+        int i = 100 - parkRepo.countFreePlace();
+        return i;
+    }
+
 }

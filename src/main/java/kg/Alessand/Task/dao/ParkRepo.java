@@ -12,6 +12,9 @@ public interface ParkRepo extends JpaRepository<Park,Long> {
 
     @Transactional
     @Modifying
-    @Query("Update Park set onPark = 'false' where id = :id")
-    int setFreePark(@Param("id")Integer id);
+    @Query(value = "Update Park set onPark = 'false' where id = :id")
+    Integer setFreePark(@Param("id")Long id);
+
+    @Query(value = "Select count(*) from Park where onPark = true")
+    int countFreePlace();
 }
