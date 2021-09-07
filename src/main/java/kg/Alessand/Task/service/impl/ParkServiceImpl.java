@@ -5,6 +5,7 @@ import kg.Alessand.Task.mapper.ParkMapper;
 import kg.Alessand.Task.model.Park;
 import kg.Alessand.Task.model.dto.ParkDto;
 import kg.Alessand.Task.service.ParkService;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,14 @@ public class ParkServiceImpl implements ParkService {
 
     @Override
     public ParkDto comeIn(ParkDto parkDto) {
-        Park park = ParkMapper.INSTANCE.toPark(parkDto);
-        park = parkRepo.save(park);
-        return ParkMapper.INSTANCE.toParkDto(park);
+        int countf = 100 - parkRepo.countFreePlace();
+        if (countf == 0) {
+            throw new RuntimeException("Parking is full");
+        } else {
+            Park park = ParkMapper.INSTANCE.toPark(parkDto);
+            park = parkRepo.save(park);
+            return ParkMapper.INSTANCE.toParkDto(park);
+        }
     }
 
     @Override
