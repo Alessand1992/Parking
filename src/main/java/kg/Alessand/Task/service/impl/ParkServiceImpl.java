@@ -5,36 +5,42 @@ import kg.Alessand.Task.mapper.ParkMapper;
 import kg.Alessand.Task.model.Park;
 import kg.Alessand.Task.model.dto.ParkDto;
 import kg.Alessand.Task.service.ParkService;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Stream;
+
 @Service
 public class ParkServiceImpl implements ParkService {
     @Autowired
     ParkRepo parkRepo;
 
-    @Override
-    public List<Park> findAll() {
-        return parkRepo.findAll();
-    }
+
 
     @Override
-    public ParkDto comeIn(ParkDto parkDto) {
-        int countf = 100 - parkRepo.countFreePlace();
-        if (countf == 0) {
-            throw new RuntimeException("Parking is full");
-        } else {
-            Park park = ParkMapper.INSTANCE.toPark(parkDto);
-            park = parkRepo.save(park);
-            return ParkMapper.INSTANCE.toParkDto(park);
-        }
+    public List<Park> findAll() {
+        List<Park> park = parkRepo.findAll();
+        park.stream().forEach(x-> System.out.println(x.getCarNumber()));
+        return park;
     }
+
+//    @Override
+//    public ParkDto comeIn(ParkDto parkDto) {
+//        int countf = 100 - parkRepo.countFreePlace();
+//        if (countf == 0) {
+//            throw new RuntimeException("Parking is full");
+//        } else {
+//            Park park = ParkMapper.INSTANCE.toPark(parkDto);
+//            park = parkRepo.save(park);
+//            return ParkMapper.INSTANCE.toParkDto(park);
+//        }
+//    }
 
     @Override
     public Integer setFreeParking(Long id) {
-        return parkRepo.setFreePark(id);
+        return null;
+                //parkRepo.setFreePark(id);
     }
 
     @Override
@@ -66,8 +72,11 @@ public class ParkServiceImpl implements ParkService {
     }
 
     @Override
-    public int findFreePlace() {
-        int i = 100 - parkRepo.countFreePlace();
+    public long findFreePlace() {
+        List<Park> park = parkRepo.findAll();
+        long count = park.stream().filter(x-> x.isOnPark() == true).count();
+        //return park;
+        long i = 100 - count;
         return i;
     }
 

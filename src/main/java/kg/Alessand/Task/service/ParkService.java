@@ -9,7 +9,7 @@ public interface ParkService {
 
     List<Park> findAll();
 
-    ParkDto comeIn(ParkDto parkDto);
+//    ParkDto comeIn(ParkDto parkDto);
 
     Integer setFreeParking(Long id);
 
@@ -19,5 +19,5 @@ public interface ParkService {
 
     Park findById(Long id);
 
-    int findFreePlace();
+    long findFreePlace();
 }

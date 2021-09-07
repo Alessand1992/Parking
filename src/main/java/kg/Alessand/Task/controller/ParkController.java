@@ -38,8 +38,9 @@ public class ParkController {
         return parkService.comeInn(park);
     }
     @GetMapping("/findFreePlace")
-    private int findFreePlace(){
+    private long findFreePlace(){
         return parkService.findFreePlace();
     }
+
 
 }
