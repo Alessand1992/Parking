@@ -1,9 +1,7 @@
 package kg.Alessand.Task.service.impl;
 
 import kg.Alessand.Task.dao.ParkRepo;
-import kg.Alessand.Task.mapper.ParkMapper;
 import kg.Alessand.Task.model.Park;
-import kg.Alessand.Task.model.dto.ParkDto;
 import kg.Alessand.Task.service.ParkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +21,13 @@ public class ParkServiceImpl implements ParkService {
         List<Park> park = parkRepo.findAll();
         park.stream().forEach(x-> System.out.println(x.getCarNumber()));
         return park;
+    }
+
+    @Override
+    public Stream<Park> findAllCarsOnParkNow() {
+        List<Park> park = parkRepo.findAll();
+        Stream<Park> allPark = park.stream().filter(x-> x.isOnPark()==true);
+        return allPark;
     }
 
 //    @Override

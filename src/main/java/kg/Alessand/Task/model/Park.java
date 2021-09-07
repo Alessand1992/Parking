@@ -3,6 +3,7 @@ package kg.Alessand.Task.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity

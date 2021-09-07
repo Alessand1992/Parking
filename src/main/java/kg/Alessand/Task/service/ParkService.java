@@ -1,13 +1,15 @@
 package kg.Alessand.Task.service;
 
 import kg.Alessand.Task.model.Park;
-import kg.Alessand.Task.model.dto.ParkDto;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface ParkService {
 
     List<Park> findAll();
+
+    Stream<Park> findAllCarsOnParkNow();
 
 //    ParkDto comeIn(ParkDto parkDto);
 
