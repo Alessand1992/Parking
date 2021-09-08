@@ -17,20 +17,18 @@ import static kg.Alessand.Task.config.Swagger2Config.PARK;
 @RequestMapping(value = "/Park")
 public class ParkController {
     @Autowired
-    ParkService parkService;
-//    @PostMapping("/save")
-//    private ParkDto save(@ModelAttribute ParkDto parkDto){
-//        return parkService.comeIn(parkDto);
-//    }
-    //@PostMapping("/save")
-    //private ClientsDto save(@ModelAttribute ClientsDto clientsDto) {
-    //    return clientsService.save(clientsDto);
+    private ParkService parkService;
+
     @PutMapping("/setFree")
     private Integer updateStatus(@RequestParam Long id){
         return parkService.setFreeParking(id);
     }
+    @PutMapping("/setIn")
+    private Integer updateStatus1(@RequestParam Long id){
+        return parkService.setFreeParking(id);
+    }
     @GetMapping("/findAll")
-    private List<Park> findAll(){
+    private List<?> findAll(){
         return parkService.findAll();
     }
     @GetMapping("/findAllCarsOnPark")

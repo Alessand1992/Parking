@@ -7,19 +7,16 @@ import java.util.stream.Stream;
 
 public interface ParkService {
 
-    List<Park> findAll();
+    List<?> findAll();
 
     Stream<Park> findAllCarsOnParkNow();
-
-//    ParkDto comeIn(ParkDto parkDto);
 
     Integer setFreeParking(Long id);
 
     Park comeInn(Park park);
 
-    Park updateTrueOnFalse(Park park);
+    Stream<Park> sendAllFalseToHistory();
 
-    Park findById(Long id);
 
     long findFreePlace();
 }
