@@ -3,10 +3,12 @@ package kg.Alessand.Task.controller;
 
 import io.swagger.annotations.Api;
 import kg.Alessand.Task.model.Park;
+import kg.Alessand.Task.model.dto.ParkDto;
 import kg.Alessand.Task.service.ParkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -36,8 +38,8 @@ public class ParkController {
         return parkService.findAllCarsOnParkNow();
     }
     @PostMapping("/save")
-    private Park save(@ModelAttribute Park park){
-        return parkService.comeInn(park);
+    private ParkDto save(@ModelAttribute ParkDto parkDto){
+        return parkService.comeInn(parkDto);
     }
     @GetMapping("/findFreePlace")
     private long findFreePlace(){

@@ -1,4 +1,4 @@
-package kg.Alessand.DBcontrollers;
+package kg.Alessand.DBcontrollers.postgres;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

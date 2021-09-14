@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class Swagger2Config {
+public class    Swagger2Config {
     public static final String PARK = "ПАРКОВКА";
     public static final String CAR = "МАШИНЫ";
     public static final String PARKHISTORY = "ИСТОРИЯ ПАРКОВОЧНЫХ МЕСТ";

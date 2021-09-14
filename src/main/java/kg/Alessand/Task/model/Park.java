@@ -15,8 +15,8 @@ public class Park {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "park_id")
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "Car_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
     private Car car;
     private boolean onPark;
     @Column(name = "start_date")

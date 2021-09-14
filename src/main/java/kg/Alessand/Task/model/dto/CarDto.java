@@ -1,2 +1,9 @@
-package kg.Alessand.Task.model.dto;public class CarDto {
+package kg.Alessand.Task.model.dto;
+
+import lombok.Data;
+
+@Data
+public class CarDto {
+
+    private String carNumber;
 }
