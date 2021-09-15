@@ -1,22 +1,21 @@
 package kg.Alessand.Task.service;
 
 import kg.Alessand.Task.model.Park;
+import kg.Alessand.Task.model.dto.ParkDto;
 
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 public interface ParkService {
 
-    List<?> findAll();
+    ParkDto saveOrUpdate(ParkDto parkDto);
 
-    Stream<Park> findAllCarsOnParkNow();
+    List<Park> findAll();
 
-    Integer setFreeParking(Long id);
+    int findAllFreePlace();
 
-    Park comeInn(Park park);
+    String setFree(Long id);
 
-    Stream<Park> sendAllFalseToHistory();
+    Optional<Park> findById(Long id);
 
-
-    long findFreePlace();
 }

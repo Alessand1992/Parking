@@ -4,7 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 
 @Data
@@ -15,12 +18,12 @@ public class Park {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "park_id")
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     private Car car;
     private boolean onPark;
     @Column(name = "start_date")
-    private Date date1;
+    private Date date;
 
 
 }

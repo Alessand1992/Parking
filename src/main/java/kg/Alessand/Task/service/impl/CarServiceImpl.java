@@ -22,9 +22,6 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDto saveOrUpdate(CarDto carDto) {
-//        Car car = CarMapper.INSTANCE.toCar(carDto);
-//        car = carRepo.saveAndFlush(car);
-//        return CarMapper.INSTANCE.toCarDto(car);
         Car car = CarMapper.INSTANCE.toCar(carDto);
         car = carRepo.saveAndFlush(car);
         return CarMapper.INSTANCE.toCarDto(car);

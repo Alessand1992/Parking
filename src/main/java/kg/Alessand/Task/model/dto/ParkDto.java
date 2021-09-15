@@ -1,16 +1,17 @@
 package kg.Alessand.Task.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import kg.Alessand.Task.model.Car;
 import lombok.Data;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
 @Data
 public class ParkDto {
 
-    private String carNumber;
+    private Car car;
     private boolean onPark;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private Date date;
+
 }

@@ -1,69 +1,65 @@
 package kg.Alessand.Task.service.impl;
 
+import kg.Alessand.Task.dao.CarRepo;
 import kg.Alessand.Task.dao.ParkRepo;
-import kg.Alessand.Task.dao.ParkingHistoryRepo;
+import kg.Alessand.Task.mapper.CarMapper;
+import kg.Alessand.Task.mapper.ParkMapper;
+import kg.Alessand.Task.model.Car;
 import kg.Alessand.Task.model.Park;
-import kg.Alessand.Task.service.ParkHistoryService;
+import kg.Alessand.Task.model.dto.CarDto;
+import kg.Alessand.Task.model.dto.ParkDto;
 import kg.Alessand.Task.service.ParkService;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
-public class ParkServiceImpl implements ParkService  {
+public class ParkServiceImpl implements ParkService {
+    @Autowired
+    CarRepo carRepo;
     @Autowired
     ParkRepo parkRepo;
-    @Autowired
-    ParkingHistoryRepo parkingHistoryRepo;
-
     @Override
-    public List<?> findAll() {
-        var park = parkRepo.findAll();
-        park.forEach(x-> System.out.println(x.getCar()));
-        return park;
+    public ParkDto saveOrUpdate(ParkDto parkDto) {
+        int count = findAllFreePlace();
+        SimpleDateFormat sfm = new SimpleDateFormat("dd MM yyyy");
+        Date date = new Date();
+        date.getTime();
+        sfm.format(date);
+        if(count <= 100) {
+            Park park = ParkMapper.INSTANCE.toPark(parkDto);
+            park.setDate(date);
+            park = parkRepo.saveAndFlush(park);
+            return ParkMapper.INSTANCE.toParkDto(park);
+        }else {
+            return null;
+        }
     }
 
     @Override
-    public Stream<Park> findAllCarsOnParkNow() {
-        List<Park> park = parkRepo.findAll();
-        Stream<Park> allPark = park.stream().filter(x-> x.isOnPark()==true);
-        return allPark;
-    }
-
-
-    @Override
-    public Integer setFreeParking(Long id) {
-        return null;
-                //parkRepo.setFreePark(id);
+    public List<Park> findAll() {
+        return parkRepo.findAll();
     }
 
     @Override
-    public Park comeInn(Park park) {
-
-        Park park1 = parkRepo.save(park);
-        return parkRepo.save(park);
+    public int findAllFreePlace() {
+        List<Park> findall = parkRepo.findAll();
+        int y = (int) findall.stream().filter(x->x.isOnPark() == true).count();
+        return 100 - y;
     }
 
-
+    @Override
+    public String setFree(Long id) {
+        parkRepo.findById(id).stream().forEach(x-> x.setOnPark(false));
+            return "Successfully";
+        }
 
     @Override
-    public long findFreePlace() {
-        List<Park> park = parkRepo.findAll();
-        long count = park.stream().filter(x-> x.isOnPark() == true).count();
-        //return park;
-        long i = 100 - count;
-        return i;
-    }
-    @Override
-    public Stream<Park> sendAllFalseToHistory() {
-        List<Park> park = parkRepo.findAll();
-        Stream<Park> allPark = park.stream().filter(x-> x.isOnPark()==false);
-        allPark.toArray();
-
-
-        return allPark;
+    public Optional<Park> findById(Long id) {
+        return parkRepo.findById(id);
     }
 }

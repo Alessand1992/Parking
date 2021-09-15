@@ -8,9 +8,8 @@ import kg.Alessand.Task.service.ParkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 import static kg.Alessand.Task.config.Swagger2Config.PARK;
 
@@ -21,29 +20,25 @@ public class ParkController {
     @Autowired
     private ParkService parkService;
 
-    @PutMapping("/setFree")
-    private Integer updateStatus(@RequestParam Long id){
-        return parkService.setFreeParking(id);
-    }
-    @PutMapping("/setIn")
-    private Integer updateStatus1(@RequestParam Long id){
-        return parkService.setFreeParking(id);
-    }
-    @GetMapping("/findAll")
-    private List<?> findAll(){
+    @GetMapping("/findallPark")
+    private List<Park> findAll(){
         return parkService.findAll();
     }
-    @GetMapping("/findAllCarsOnPark")
-    private Stream<Park> findAllCarsOnPark(){
-        return parkService.findAllCarsOnParkNow();
+    @GetMapping("/findById")
+    private Optional<Park> byId(Long id){
+        return parkService.findById(id);
     }
-    @PostMapping("/save")
-    private ParkDto save(@ModelAttribute ParkDto parkDto){
-        return parkService.comeInn(parkDto);
+    @PutMapping("/savePark")
+    private ParkDto save(ParkDto parkDto){
+        return parkService.saveOrUpdate(parkDto);
     }
-    @GetMapping("/findFreePlace")
-    private long findFreePlace(){
-        return parkService.findFreePlace();
+    @PutMapping("/changeStatus")
+    private String change(Long id){
+        return parkService.setFree(id);
+    }
+    @GetMapping("/placeStatus")
+    private int place(){
+        return parkService.findAllFreePlace();
     }
 
 
